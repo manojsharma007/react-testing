@@ -1,61 +1,193 @@
-{
-  "name": "@coreui/coreui-free-react-admin-template",
-  "version": "5.4.0",
-  "description": "CoreUI Free React Admin Template",
-  "homepage": ".",
-  "bugs": {
-    "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:coreui/coreui-free-react-admin-template.git"
-  },
-  "license": "MIT",
-  "author": "The CoreUI Team (https://github.com/orgs/coreui/people)",
-  "scripts": {
-    "build": "vite build",
-    "lint": "eslint",
-    "serve": "vite preview",
-    "start": "vite"
-  },
-  "dependencies": {
-    "@coreui/chartjs": "^4.1.0",
-    "@coreui/coreui": "^5.3.1",
-    "@coreui/icons": "^3.0.1",
-    "@coreui/icons-react": "^2.3.0",
-    "@coreui/react": "^5.5.0",
-    "@coreui/react-chartjs": "^3.0.0",
-    "@coreui/utils": "^2.0.2",
-    "@popperjs/core": "^2.11.8",
-    "chart.js": "^4.4.7",
-    "classnames": "^2.5.1",
-    "core-js": "^3.40.0",
-    "daterangepicker": "^3.1.0",
-    "material-react-table": "^3.2.1",
-    "prop-types": "^15.8.1",
-    "rc-pagination": "^5.1.0",
-    "react": "^19.0.0",
-    "react-data-table-component": "^7.7.0",
-    "react-date-range": "^2.0.1",
-    "react-dom": "^19.0.0",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^7.1.5",
-    "redux": "5.0.1",
-    "rsuite": "^5.80.1",
-    "simplebar-react": "^3.3.0"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^9.20.1",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-prettier": "^5.2.3",
-    "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "globals": "^15.15.0",
-    "postcss": "^8.5.2",
-    "prettier": "3.5.1",
-    "sass": "^1.85.0",
-    "vite": "^6.1.0"
-  }
-}
+import { useMemo, useState } from 'react';
+import DataTable from 'react-data-table-component';
+import { DateRangePicker } from 'rsuite';
+
+
+const columns = [
+    {
+        name: 'Business Segment',
+        selector: row => row.buinessSegment,
+        sortable: true,
+    },
+    {
+        name: 'Portfolio Name',
+        selector: row => row.portfolioName,
+        sortable: true,
+    },
+    {
+        name: 'Policy Number',
+        selector: row => row.policyId,
+        sortable: true,
+    },
+    {
+        name: 'Insurance Name',
+        selector: row => row.insuranceName,
+        sortable: true,
+    },
+    {
+        name: 'Exclusion Name',
+        selector: row => row.exclusionName,
+        sortable: true,
+    },
+    {
+        name: 'Exclusion #',
+        selector: row => row.exclusionId,
+        sortable: true,
+    },
+    {
+        name: 'Policy Effect Date',
+        selector: row => row.date,
+        sortable: true,
+    },
+];
+
+const data = [
+    {
+        id: 1,
+        buinessSegment: 'General Liability',
+        portfolioName: 'Primary Casualty',
+        policyId: 'CF3GL00373251',
+        insuranceName: 'insurance name 1',
+        exclusionName: 'exclusions name 1',
+        exclusionId: 'exclusion id 1',
+        date: '5 may 2025',
+    },
+
+    {
+        id: 2,
+        buinessSegment: 'General Liability',
+        portfolioName: 'Primary Casualty',
+        policyId: '11',
+        insuranceName: 'insurance name 2',
+        exclusionName: 'exclusions name 2',
+        exclusionId: 'exclusion id 2',
+        date: '6 may 2025',
+    },
+    {
+        id: 3,
+        buinessSegment: 'Test 3',
+        portfolioName: 'Portfolio 3',
+        policyId: '114',
+        insuranceName: 'insurance name 23',
+        exclusionName: 'exclusions name 23',
+        exclusionId: 'exclusion id 23',
+        date: '9 may 2025',
+    },
+    {
+        id: 4,
+        buinessSegment: 'Test 1',
+        portfolioName: 'Portfolio 1',
+        policyId: '11',
+        insuranceName: 'insurance name 1',
+        exclusionName: 'exclusions name 1',
+        exclusionId: 'exclusion id 1',
+        date: '5 may 2025',
+    },
+    {
+        id: 53,
+        buinessSegment: 'Test w34',
+        portfolioName: 'Portfolio 1',
+        policyId: '11',
+        insuranceName: 'insurance name 1',
+        exclusionName: 'exclusions name 1',
+        exclusionId: 'exclusion id 1',
+        date: '5 may 2025',
+    },
+    {
+        id: 226,
+        buinessSegment: 'Test 13',
+        portfolioName: 'Portfolio 1',
+        policyId: '11',
+        insuranceName: 'insurance name 1',
+        exclusionName: 'exclusions name 1',
+        exclusionId: 'exclusion id 1',
+        date: '5 may 2025',
+    },
+    {
+        id: 63,
+        buinessSegment: 'Test 14',
+        portfolioName: 'Portfolio 1',
+        policyId: '11',
+        insuranceName: 'insurance name 1',
+        exclusionName: 'exclusions name 1',
+        exclusionId: 'exclusion id 1',
+        date: '5 may 2025',
+    },
+    {
+        id: 26,
+        buinessSegment: 'Test 13',
+        portfolioName: 'Portfolio 1',
+        policyId: '11',
+        insuranceName: 'insurance name 1',
+        exclusionName: 'exclusions name 1',
+        exclusionId: 'exclusion id 1',
+        date: '5 may 2025',
+    },
+
+
+
+
+]
+const Example = () => {
+
+    const [filterText, setFilterText] = useState('');
+    const filteredItems = useMemo(() => {
+        return data.filter(item =>
+            item.buinessSegment.toLowerCase().includes(filterText.toLowerCase())
+        );
+    }, [filterText, data])
+
+    const tableCustomStyles = {
+        headRow: {
+            style: {
+                color: '#223336',
+                backgroundColor: '#e7eef0'
+            },
+        },
+        striped: {
+            default: 'red'
+        },
+    }
+
+    const [value, setValue] =
+        useState([new Date("2017-02-01"),
+        new Date("2017-05-20")]);
+    return <>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+
+                </div>
+                <div class="col-sm">
+                    <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Search..."
+                        value={filterText}
+                        onChange={e => setFilterText(e.target.value)}
+                    />
+                </div>
+                <div class="col-sm">
+                    <DateRangePicker placeholder="Select Date Range" value={value}
+                        onChange={setValue} />
+                </div>
+            </div>
+        </div>
+
+        <DataTable className='table table-striped'
+            columns={columns}
+            data={filteredItems}
+            pagination
+            paginationPerPage={5}
+            highlightOnHover
+            striped
+            customStyles={tableCustomStyles}
+            paginationRowsPerPageOptions={[5, 10, 15, 20]}
+        />
+    </>
+};
+
+export default Example;
+
+@import "rsuite/dist/rsuite.css";
